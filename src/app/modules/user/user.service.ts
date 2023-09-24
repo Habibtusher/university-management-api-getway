@@ -7,9 +7,10 @@ import { IGenericResponse } from "../../../interfaces/common";
 const createStudent = async (req: Request) => {
     const file = req.file as IUploadFile;
     const uploadedImage = await FileUploadHelper.uploadToCloudinary(file);
+    
 
     if (uploadedImage) {
-        req.body.profileImage = uploadedImage.secure_url
+        req.body.student.profileImage = uploadedImage.secure_url
     }
 
     const { academicDepartment, academicFaculty, academicSemester } = req.body.student
@@ -28,6 +29,7 @@ const createStudent = async (req: Request) => {
 
     const academicSemesterResponse = await AuthService.get(`/academic-semesters?syncId=${academicSemester}`)
 
+ 
     if (academicSemesterResponse.data && Array.isArray(academicSemesterResponse.data)) {
         req.body.student.academicSemester = academicSemesterResponse.data[0].id
     }

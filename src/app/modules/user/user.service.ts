@@ -82,6 +82,7 @@ const createAdmin = async (req: Request): Promise<IGenericResponse> => {
     const file = req.file as IUploadFile;
 
     const uploadedProfileImage = await FileUploadHelper.uploadToCloudinary(file);
+    console.log("🚀 ~ file: user.service.ts:85 ~ createAdmin ~ uploadedProfileImage:", uploadedProfileImage)
 
     if (uploadedProfileImage) {
         req.body.admin.profileImage = uploadedProfileImage.secure_url;
